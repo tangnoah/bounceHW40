@@ -1,5 +1,6 @@
 ArrayList<bouncingBall> ballList = new ArrayList<bouncingBall>();
 boolean collecting = false;
+boolean initial = true;
 
 void setup() {
   size(400, 600);
@@ -17,9 +18,12 @@ void draw() {
     b.move();
     b.display();
     b.reflect();
-    if( collecting 
-      && b.x < 250 && b.x > 150 
-      && b.y < 350 && b.y > 250)
+    if( initial && collecting 
+      && b.collision(ballList)){
+      b.stopBall();
+      initial = false;  
+    }
+    else if( collecting && b.collisionWithStopped(ballList))
       b.stopBall();
   }
 }
